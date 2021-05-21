@@ -16,6 +16,9 @@ class IndexController extends Controller
     public function index(){
         return view('welcome')->with('title','Home ― Miners Gallery');
     }
+    public function feedback(){
+        return view('feedback')->with('title','Feedback ― Miners Gallery');
+    }
     public function auxpage_2(){
         return view('auxpage_2')->with('title','Shipping and Handling ― Miners Gallery');
     }
