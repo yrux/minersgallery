@@ -1,50 +1,47 @@
 <x-app-layout>
-    <x-auth-card>
-        <form method="POST" action="{{ route('register') }}">
+<div class="login"> 
+        <h1>{{__('Login')}}</h1>
+        <form method="POST" class="loginForm" action="{{ route('register') }}">
             @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+            <label for="name">
+                <span>{{__('Name')}}:</span>
+                <input type="text" name="name" id="name" size="40" value="{{old('name')}}" required autofocus />
+                @if ($errors->has('name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+                @endif
+            </label>
+            <label for="email">
+                <span>{{__('Email')}}:</span>
+                <input type="text" name="email" id="email" size="40" value="{{old('email')}}" required autofocus />
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </label>
+            <label for="password">
+                <span>{{__('Password')}}:</span>
+                <input type="text" name="password" id="password" required autocomplete="current-password" size="40" />
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </label>
+            <label for="password_confirmation">
+                <span>{{__('Confirm Password')}}:</span>
+                <input type="text" name="password_confirmation" id="password_confirmation" required autocomplete="current-password" size="40" />
+            </label>
+            <input type="submit" value="Register" />
         </form>
-    </x-auth-card>
+        <ul>
+            @if (Route::has('password.request'))
+                <li><a href="{{ route('password.request') }}">{{__('Forgot Password?')}}</a></li>
+            @endif
+            <li><a href="{{ route('login') }}">{{__('Login')}}</a></li>
+            <li><a href="{{ route('login') }}">{{__('Administrator Login')}}</a></li>
+        </ul>
+    </div>
 </x-app-layout>

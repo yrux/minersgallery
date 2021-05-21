@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Customer\IndexController as CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +19,8 @@ Route::get('/feedback', [IndexController::class, 'feedback'])->name('feedback');
 Route::get('/auxpage_2', [IndexController::class, 'auxpage_2'])->name('auxpage_2');
 Route::get('/auxpage_3', [IndexController::class, 'auxpage_3'])->name('auxpage_3');
 Route::get('/auxpage_4', [IndexController::class, 'auxpage_4'])->name('auxpage_4');
+Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\Http\Controllers\Adminiy'], function () {
 

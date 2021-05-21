@@ -9,6 +9,7 @@ use App\Model\Adminiy;
 use Hash;
 use App\Rules\PasswordMatch;
 use Illuminate\Support\MessageBag;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -44,8 +45,12 @@ class LoginController extends Controller
             return redirect()->route('adminiy.login')->withInput($request->input());
         }
     }
-    public function logout(){
-        Auth::guard('adminiy')->logout();
+    public function logout(Request $request){
+        // Auth::guard('adminiy')->logout();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
         return redirect()->route('adminiy.login');
     }
 }
