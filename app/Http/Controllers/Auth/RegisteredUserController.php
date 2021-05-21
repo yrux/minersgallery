@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Helper;
+use App\Models\blogs;
 
 class RegisteredUserController extends Controller
 {
@@ -18,6 +20,12 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function __construct()
+    {
+        $favicon=Helper::OneColData('imagetable','img_path',"table_name='favicon' and ref_id=0 and is_active_img='1'");
+        View()->share('favicon',$favicon);
+        View()->share('recentBlogs', blogs::where('is_deleted',0)->where('is_active',1)->orderBy('id','desc')->limit(4)->get());
+    }
     public function create()
     {
         return view('auth.register');
