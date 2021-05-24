@@ -16,7 +16,7 @@
             <?php print $blog->blog_shortdescription; ?>
         </div>
         @endforeach
-        <div>
+        <div class="blog_pagination">
             {{$blogs->links()}}
         </div>
     </div>

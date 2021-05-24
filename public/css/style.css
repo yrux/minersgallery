@@ -558,3 +558,6 @@ footer ul a {
   color:red;
   display:block;
 }
+.blog_pagination svg.w-5.h-5 {
+  width: 12px;
+}
