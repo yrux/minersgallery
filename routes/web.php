@@ -24,6 +24,8 @@ Route::get('/auxpage_4', [IndexController::class, 'auxpage_4'])->name('auxpage_4
 Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
 Route::post('/newsletter', [IndexController::class, 'newsletter'])->name('newsletter');
 Route::post('/feedback', [IndexController::class, 'feedbacksave'])->name('feedbacksave');
+Route::get('/importCategory', [IndexController::class, 'importCategory'])->name('importCategory');
+Route::get('/category/{category}', [IndexController::class, 'category'])->name('category');
 
 
 Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\Http\Controllers\Adminiy'], function () {
@@ -90,7 +92,7 @@ Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\
 		$key = $_POST['key'];
 		$value = $_POST['value'];
 		$where = $_POST['where'];
-		$model_name = 'App\Model\\'.$table;
+		$model_name = 'App\Models\\'.$table;
 		$fetching = $model_name::select($key,$value)->where('is_active',1)->where('is_deleted',0);
 		if(!empty($where)){
 			$fetching = $fetching->whereRaw($where);

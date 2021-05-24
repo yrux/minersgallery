@@ -46,9 +46,9 @@ class ListingController extends IndexController
             $ytables->fast_crud = 1;
             $ytables->page_limit = '10';
             $ytables->table_name=$tablename[0];
-            $ytables->model_name='';//Str::title($tablename[0]);
+            $ytables->model_name=Str::studly(Str::singular($tablename[0]));//'';//Str::title($tablename[0]);
             $exitCode = Artisan::call('make:request',['name'=>'yTable'.$tablename[0].'Request']);
-            $exitCode_model = Artisan::call('make:model',['name'=>'Model\\'.$tablename[0]]);
+            $exitCode_model = Artisan::call('make:model',['name'=>$ytables->model_name]);
             if(!empty($_GET['eventGenerate'])){
                 Artisan::call('make:event',['name'=>$tablename[0].'Event']);
                 Artisan::call('make:listner',['name'=>$tablename[0].'Notification']);
