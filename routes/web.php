@@ -15,7 +15,7 @@ use App\Http\Controllers\Customer\IndexController as CustomerController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-Route::get('/feedback', [IndexController::class, 'feedback'])->name('feedback');
+Route::get('/feedback', [IndexController::class, 'feedback'])->name('feedback'); 
 Route::get('/auxpage_2', [IndexController::class, 'auxpage_2'])->name('auxpage_2');
 Route::get('/auxpage_3', [IndexController::class, 'auxpage_3'])->name('auxpage_3');
 Route::get('/auxpage_4', [IndexController::class, 'auxpage_4'])->name('auxpage_4');
