@@ -15,11 +15,15 @@ use App\Http\Controllers\Customer\IndexController as CustomerController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-Route::get('/feedback', [IndexController::class, 'feedback'])->name('feedback'); 
+Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
+Route::get('/blog/{blog}', [IndexController::class, 'blog'])->name('blog');
+Route::get('/feedback', [IndexController::class, 'feedback'])->name('feedback');
 Route::get('/auxpage_2', [IndexController::class, 'auxpage_2'])->name('auxpage_2');
 Route::get('/auxpage_3', [IndexController::class, 'auxpage_3'])->name('auxpage_3');
 Route::get('/auxpage_4', [IndexController::class, 'auxpage_4'])->name('auxpage_4');
 Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
+Route::post('/newsletter', [IndexController::class, 'newsletter'])->name('newsletter');
+Route::post('/feedback', [IndexController::class, 'feedbacksave'])->name('feedbacksave');
 
 
 Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\Http\Controllers\Adminiy'], function () {
@@ -32,7 +36,7 @@ Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\
 	/*change password admin*/
 	Route::post('/change-password',function(){
 		if($_POST['change_password']==$_POST['change_confirm_password']){
-			$adminiy=App\Model\Adminiy::find(adminiy()->id);
+			$adminiy=App\Models\User::find(adminiy()->id);
 			$adminiy->password = Hash::make($_POST['change_password']);
 			$adminiy->save();
 			return back()->with('notify_success','Password Updated');

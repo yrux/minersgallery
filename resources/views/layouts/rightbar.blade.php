@@ -30,17 +30,23 @@
         @foreach($recentBlogs as $recentBlog)
         <div class="rightSidebar_blogSingle">
             <small>{{date('m/d/Y h:m:i', strtotime($recentBlog->created_at))}}</small>
-            <a href="">
+            <a href="{{route('blog',[$recentBlog])}}">
             {{$recentBlog->blog_title}}
             </a>
         </div>
         @endforeach
-        <a href="">See all post...</a>
-        <form action="#" class="rightSidebar_form">
+        <a href="{{route('blogs')}}">See all post...</a>
+        <form method="POST" action="{{route('newsletter')}}" class="rightSidebar_form">
+            @csrf
             <label for="#">
             Subscribe for email newsletter (blog):
-            <input type="email" placeholder="Email" />
+            <input name="email" type="email" placeholder="Email" />
             </label>
+            @if($errors->newsletter->any())
+            @foreach ($errors->newsletter->all() as $error)
+            <p class="">{{$error}}</p>
+            @endforeach
+            @endif
             <button type="submit">OK</button>
         </form>
         </div>

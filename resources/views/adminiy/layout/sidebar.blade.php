@@ -23,8 +23,9 @@
                         <li class="{{Route::currentRouteName()=='adminiy.panel'?'navigation__active':''}}"><a href="{{route('adminiy.panel')}}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
                         <li><a target="_blank" href="{{route('home')}}"><i class="zmdi zmdi-globe"></i> Visit Website</a></li>
                         <li class="{{Route::currentRouteName()=='adminiy.config'?'navigation__active':''}}"><a href="{{route('adminiy.config')}}"><i class="zmdi zmdi-settings zmdi-hc-fw"></i> Config</a></li>
-                        <li class="{{isset($inquiry_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/inquiry-listing#type=1')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i> Contact Inquiry</a></li>
+                        <li class="{{isset($feedbacks_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/feedbacks-listing')}}"><i class="zmdi zmdi-email-open zmdi-hc-fw"></i> Contact Inquiry</a></li>
                         <li class="{{isset($blogs_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/blogs-listing')}}"><i class="zmdi zmdi-view-web zmdi-hc-fw"></i> Blogs</a></li>
+                        <li class="{{isset($newsletter_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/newsletter-listing')}}"><i class="zmdi zmdi-mail-send zmdi-hc-fw"></i> Newsletters</a></li>
                         <!--Example for sub menus -->
                         <!--product management-->
                         <!-- <?php 

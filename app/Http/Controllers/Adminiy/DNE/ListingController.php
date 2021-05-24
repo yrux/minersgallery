@@ -70,6 +70,7 @@ class ListingController extends IndexController
     /*Create listing end*/
     /*fetching list data start*/
     public function ytable(yTableRequest $request){
+        $ytable = ytables::where('table_name',$request->table)->first();
         $uniqueCol = $request->uniqueCol;
         $validated = $request->validated();
         if($validated){
@@ -81,7 +82,7 @@ class ListingController extends IndexController
             $clausesHierarchy = !isset($request->clauses)?[]:$request->clauses;
             $joins = !isset($request->joins)?[]:$request->joins;
             $q = !isset($request->q)?'':$request->q;
-            $model = Helper::returnMod($table);
+            $model = Helper::returnMod(($ytable->model_name!=''?$ytable->model_name:$table));
             /*Defining Variables end*/
             /*Generating Query*/
                 $colsarray = collect([]);

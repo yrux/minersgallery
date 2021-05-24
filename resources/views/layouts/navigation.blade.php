@@ -9,7 +9,7 @@
         @if(Auth::user()->user_type==0)
         <li class="nav_link"><a href="{{route('dashboard')}}">Dashboard</a></li>
         @else
-        <li class="nav_link"><a href="{{route('dashboard')}}">Dashboard</a></li>
+        <li class="nav_link"><a href="{{route('adminiy.panel')}}">Dashboard</a></li>
         @endif
         <li class="nav_link"><a href="{{route('logout')}}">Logout</a></li>
         @endauth

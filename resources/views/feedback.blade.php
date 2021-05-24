@@ -3,7 +3,13 @@
     <div class="feedback">
         <h1>Feedback</h1>
         <span>Using this form you can send us a message.</span>
-        <form action="#" class="feedbackForm">
+        @if($errors->feedback->any())
+        @foreach ($errors->feedback->all() as $error)
+        <p class="">{{$error}}</p>
+        @endforeach
+        @endif
+        <form action="{{route('feedbacksave')}}" method="POST" class="feedbackForm">
+            @csrf
             <label for="name">
             <span>Your Name:</span>
             <input type="text" name="name" id="name" size="40" />
@@ -16,12 +22,12 @@
             <span>Subject:</span>
             <input type="text" name="subject" id="subject" size="40" />
             </label>
-            <label for="message">
+            <label for="description">
             <span>Text:</span>
             <br />
             <textarea
-                name="message"
-                id="message"
+                name="description"
+                id="description"
                 cols="50"
                 rows="7"
             ></textarea>

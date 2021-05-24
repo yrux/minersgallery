@@ -24,6 +24,7 @@
                 </div>
                 @include('layouts.rightbar')
             </div>
+            @include('layouts.footer')
         </div>
         @include('components.errorhandler')
         @stack('js')

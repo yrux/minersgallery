@@ -5,6 +5,10 @@ use View;
 use Illuminate\Http\Request;
 use Helper;
 use App\Models\blogs;
+use App\Models\Newsletter;
+use App\Models\Feedback;
+use App\Http\Requests\yTablenewsletterRequest;
+use App\Http\Requests\yTablefeedbacksRequest;
 class IndexController extends Controller
 {
     public function __construct()
@@ -27,5 +31,20 @@ class IndexController extends Controller
     }
     public function auxpage_4(){
         return view('auxpage_4')->with('title','Metaphysical Characteristics of Crystals and Gemstones ― Miners Gallery');
+    }
+    public function blogs(){
+        $blogs = Helper::returnMod('blogs')->where('is_active',1)->orderBy('id','desc')->paginate(10);
+        return view('blogs.index')->with('title','Blogs ― Miners Gallery')->with(compact('blogs'));
+    }
+    public function blog(blogs $blog){
+        return view('blogs.detail')->with('title',$blog->blog_title.' ― Miners Gallery')->with(compact('blog'));
+    }
+    public function newsletter(yTablenewsletterRequest $request){
+        Newsletter::create($request->only('email'));
+        return back()->with('notify_success','Newsletter Added');
+    }
+    public function feedbacksave(yTablefeedbacksRequest $request){
+        Newsletter::create($request->only(['email','name','subject','description']));
+        return back()->with('notify_success','Thank you for inquiry');
     }
 }
