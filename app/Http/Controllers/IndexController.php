@@ -19,7 +19,9 @@ class IndexController extends Controller
         View()->share('leftCatalogue', Category::where('is_deleted',0)->where('is_active',1)->where('parent_id',1)->orderBy('name','asc')->get());
     }
     public function index(){
-        return view('welcome')->with('title','Home ― Miners Gallery');
+        $products = Product::orderBy('id','desc')->limit(64)->get();
+        return view('welcome')->with('title','Home ― Miners Gallery')
+        ->with(compact('products'));
     }
     public function feedback(){
         return view('feedback')->with('title','Feedback ― Miners Gallery');

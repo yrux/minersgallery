@@ -115,13 +115,13 @@ _default will set a default value for new records
         //     hiddenInList:true,
         //     _table:`${tablename}_optional`,
         // }
-        // ,{
-        //     column:'id',
-        //     name:'Image',
-        //     type:'image',
-        //     hiddenInList:true,
-        //     _table:tablename,
-        // }
+        ,{
+            column:'id',
+            name:'Image',
+            type:'image',
+            hiddenInList:true,
+            _table:tablename,
+        }
         // ,{
         //     column:'table_thumb_image',
         //     name:'Thumb',
