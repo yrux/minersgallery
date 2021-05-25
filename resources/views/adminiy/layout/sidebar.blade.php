@@ -23,10 +23,11 @@
                         <li class="{{Route::currentRouteName()=='adminiy.panel'?'navigation__active':''}}"><a href="{{route('adminiy.panel')}}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
                         <li><a target="_blank" href="{{route('home')}}"><i class="zmdi zmdi-globe"></i> Visit Website</a></li>
                         <li class="{{Route::currentRouteName()=='adminiy.config'?'navigation__active':''}}"><a href="{{route('adminiy.config')}}"><i class="zmdi zmdi-settings zmdi-hc-fw"></i> Config</a></li>
-                        <li class="{{isset($feedbacks_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/feedbacks-listing')}}"><i class="zmdi zmdi-email-open zmdi-hc-fw"></i> Contact Inquiry</a></li>
+                        <li class="{{isset($feedbacks_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/feedbacks-listing')}}"><i class="zmdi zmdi-email-open zmdi-hc-fw"></i> Feedback</a></li>
                         <li class="{{isset($blogs_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/blogs-listing')}}"><i class="zmdi zmdi-view-web zmdi-hc-fw"></i> Blogs</a></li>
                         <li class="{{isset($newsletter_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/newsletter-listing')}}"><i class="zmdi zmdi-mail-send zmdi-hc-fw"></i> Newsletters</a></li>
                         <li class="{{isset($category_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/category-listing')}}"><i class="zmdi zmdi-scanner zmdi-hc-fw"></i> Category</a></li>
+                        <li class="{{isset($products_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/products-listing')}}"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i> Products</a></li>
                         <li class="{{isset($metatags_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/metatags-listing')}}"><i class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Meta Tags</a></li>
                         <!--Example for sub menus -->
                         <!--product management-->

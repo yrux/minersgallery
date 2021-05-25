@@ -143,19 +143,47 @@ _default will set a default value for new records
         //     hiddenInList:true,
         //     typeData:'createAnchor'
         // }
-        // ,{
-        //     column:'id',
-        //     name:'multiimage',
-        //     type:'multiimage',
-        //     hiddenInList:true,
-        //     _table:`${tablename}_optional`,
-        // }
         ,{
             column:'id',
             name:'Image',
             type:'image',
             hiddenInList:true,
-            _table:tablename,
+            _table:'productsmain',
+        }
+        ,{
+            column:'id',
+            name:'Thumb Image',
+            type:'image',
+            hiddenInList:true,
+            _table:'productsthumb',
+        }
+        ,{
+            column:'id',
+            name:'Large Image',
+            type:'image',
+            hiddenInList:true,
+            _table:'productsenlarge',
+        }
+        ,{
+            column:'id',
+            name:'Other Images',
+            type:'multiimage',
+            hiddenInList:true,
+            _table:`productsmainextra`,
+        }
+        ,{
+            column:'id',
+            name:'Other Images Thumb',
+            type:'multiimage',
+            hiddenInList:true,
+            _table:`productsthumbextra`,
+        }
+        ,{
+            column:'id',
+            name:'Other Images Large',
+            type:'multiimage',
+            hiddenInList:true,
+            _table:`productsenlargeextra`,
         }
         // ,{
         //     column:'table_thumb_image',

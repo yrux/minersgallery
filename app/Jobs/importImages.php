@@ -56,6 +56,12 @@ class importImages implements ShouldQueue
                             File::copy(public_path('imports/products_pictures/products_pictures/'.$imag->filename),storage_path('app/public/Uploads/products/'.$imag->filename)
                             );
                             $imagetable->save();
+                            $image = new Image;
+                            $image->imageable_id = $productid;
+                            $image->table_name='productsmain';
+                            $image->url='Uploads/products/'.$imag->filename;
+                            $image->imageable_type = 'App\Models\Product';
+                            $image->save();
                             $imagetable = new imagetable;
                             $imagetable->table_name='productsthumb';
                             $imagetable->ref_id=$productid;
@@ -66,6 +72,12 @@ class importImages implements ShouldQueue
                                 storage_path('app/public/Uploads/products/'.$imag->thumbnail)
                             );
                             $imagetable->save();
+                            $image = new Image;
+                            $image->imageable_id = $productid;
+                            $image->table_name='productsthumb';
+                            $image->url='Uploads/products/'.$imag->thumbnail;
+                            $image->imageable_type = 'App\Models\Product';
+                            $image->save();
                             $imagetable = new imagetable;
                             $imagetable->table_name='productsenlarge';
                             $imagetable->ref_id=$productid;
@@ -76,6 +88,12 @@ class importImages implements ShouldQueue
                                 storage_path('app/public/Uploads/products/'.$imag->enlarged)
                             );
                             $imagetable->save();
+                            $image = new Image;
+                            $image->imageable_id = $productid;
+                            $image->table_name='productsenlarge';
+                            $image->url='Uploads/products/'.$imag->enlarged;
+                            $image->imageable_type = 'App\Models\Product';
+                            $image->save();
                             continue;
                         }
                     }
