@@ -9,6 +9,7 @@ use App\Http\Requests\{yTablenewsletterRequest, yTablefeedbacksRequest};
 // use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\Cache;
 class IndexController extends Controller
 {
     public function __construct()
@@ -19,9 +20,14 @@ class IndexController extends Controller
         View()->share('leftCatalogue', Category::where('is_deleted',0)->where('is_active',1)->where('parent_id',1)->orderBy('name','asc')->get());
     }
     public function index(){
-        $products = Product::orderBy('id','desc')->limit(64)->get();
+        $products = Cache::remember('homeProduct', 600, function () {
+            return Product::orderBy('id','desc')->where('is_active',1)->where('is_deleted',0)->limit(64)->get();
+        });
+        $categories = Cache::remember('homeCategory', 600, function () {
+            return Category::where('show_on_home',1)->where('is_active',1)->where('is_deleted',0)->get();
+        });
         return view('welcome')->with('title','Home ― Miners Gallery')
-        ->with(compact('products'));
+        ->with(compact('products','categories'));
     }
     public function feedback(){
         return view('feedback')->with('title','Feedback ― Miners Gallery');
@@ -49,6 +55,9 @@ class IndexController extends Controller
     public function feedbacksave(yTablefeedbacksRequest $request){
         Feedback::create($request->only(['email','name','subject','description']));
         return back()->with('notify_success','Thank you for inquiry');
+    }
+    public function category (Category $category) {
+        dd($category);
     }
     public function importProducts(){
         \App\Jobs\importImages::dispatch();

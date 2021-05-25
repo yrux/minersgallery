@@ -142,6 +142,13 @@ _default will set a default value for new records
             type:'checkbox',
             _default:'1',
         }
+        ,{
+            column:'show_on_home',
+            name:'Show on Home?',
+            callback:'is_active',
+            type:'checkbox',
+            _default:'0',
+        }
     ],
     [
          //{ "left join" : "(select id as img_id,ref_id,table_name as img_tblename,img_path as "+_imageCol+" from imagetable where imagetable.table_name='"+tablename+"' and imagetable.type='1') as imagetable on  imagetable.ref_id="+tablename+".id" } ,

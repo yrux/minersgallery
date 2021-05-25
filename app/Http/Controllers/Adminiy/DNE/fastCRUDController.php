@@ -34,7 +34,7 @@ class fastCRUDController extends IndexController
         $anyImage = array();
         $multiImage = array();
         $inputs = $request->except(['modelName','ytable_table','unique_column']);
-        $statusInputs = array('is_active','is_deleted','is_featured');
+        $statusInputs = array('is_active','is_deleted','is_featured','show_on_home');
         /*before save*/
         try{
             $inputs = app("App\Http\Controllers\Adminiy\FCCallbackControllers\\".$table."Controller")->beforeInsert($inputs);
