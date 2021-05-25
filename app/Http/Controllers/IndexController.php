@@ -4,12 +4,11 @@ use App\Http\Controllers\Controller;
 use View;
 use Illuminate\Http\Request;
 use Helper;
-use App\Models\blogs;
-use App\Models\Newsletter;
-use App\Models\Feedback;
-use App\Models\Category;
-use App\Http\Requests\yTablenewsletterRequest;
-use App\Http\Requests\yTablefeedbacksRequest;
+use App\Models\{Category, Product, Feedback, Newsletter, blogs, imagetable, Image, Metatag};
+use App\Http\Requests\{yTablenewsletterRequest, yTablefeedbacksRequest};
+// use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+use File;
 class IndexController extends Controller
 {
     public function __construct()
@@ -48,6 +47,137 @@ class IndexController extends Controller
     public function feedbacksave(yTablefeedbacksRequest $request){
         Newsletter::create($request->only(['email','name','subject','description']));
         return back()->with('notify_success','Thank you for inquiry');
+    }
+    public function importProducts(){
+        \App\Jobs\importImages::dispatch();
+        return;
+        $images = \collect(json_decode(file_get_contents(public_path('imports/SC_product_pictures.json'))));
+        $productsJson = \collect(json_decode(file_get_contents(public_path('imports/SC_products.json'))));
+        $products = Product::whereNotIn('id',imagetable::where('table_name','like',"'%product%'")->get()->pluck('ref_id'))->get()->pluck('id');
+        // dd($products);
+        foreach($products as $productid){
+            $image = $images->where('productID',$productid)->all();
+            foreach($image as $imag){
+                // dump($imag->thumbnail);
+                // dump($imag->enlarged);
+                // dd($imag->filename);
+                try {
+                    $defaultImage = $productsJson->where('productID', $productid)->first();
+                    if($defaultImage){
+                        if($imag->photoID==$defaultImage->default_picture){
+                            $imagetable = new imagetable;
+                            $imagetable->table_name='productsmain';
+                            $imagetable->ref_id=$productid;
+                            $imagetable->type=1;
+                            $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->filename);
+                            File::copy(public_path('imports/products_pictures/products_pictures/'.$imag->filename),storage_path('app/public/Uploads/products/'.$imag->filename)
+                            );
+                            $imagetable->save();
+                            $imagetable = new imagetable;
+                            $imagetable->table_name='productsthumb';
+                            $imagetable->ref_id=$productid;
+                            $imagetable->type=1;
+                            $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->thumbnail);
+                            File::copy(
+                                public_path('imports/products_pictures/products_pictures/'.$imag->thumbnail),
+                                storage_path('app/public/Uploads/products/'.$imag->thumbnail)
+                            );
+                            $imagetable->save();
+                            $imagetable = new imagetable;
+                            $imagetable->table_name='productsenlarge';
+                            $imagetable->ref_id=$productid;
+                            $imagetable->type=1;
+                            $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->enlarged);
+                            File::copy(
+                                public_path('imports/products_pictures/products_pictures/'.$imag->enlarged),
+                                storage_path('app/public/Uploads/products/'.$imag->enlarged)
+                            );
+                            $imagetable->save();
+                            continue;
+                        }
+                    }
+                    $imagetable = new imagetable;
+                    $imagetable->table_name='productsmainextra';
+                    $imagetable->ref_id=$productid;
+                    $imagetable->type=2;
+                    $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->filename);
+                    File::copy(
+                        public_path('imports/products_pictures/products_pictures/'.$imag->filename),
+                        storage_path('app/public/Uploads/products/'.$imag->filename)
+                    );
+                    $imagetable->save();
+                    $imagetable = new imagetable;
+                    $imagetable->table_name='productsthumbextra';
+                    $imagetable->ref_id=$productid;
+                    $imagetable->type=2;
+                    $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->thumbnail);
+                    File::copy(
+                        public_path('imports/products_pictures/products_pictures/'.$imag->thumbnail),
+                        storage_path('app/public/Uploads/products/'.$imag->thumbnail)
+                    );
+                    $imagetable->save();
+                    $imagetable = new imagetable;
+                    $imagetable->table_name='productsenlargeextra';
+                    $imagetable->ref_id=$productid;
+                    $imagetable->type=2;
+                    $imagetable->img_path =storage_path('app/public/Uploads/products/'.$imag->enlarged);
+                    File::copy(
+                        public_path('imports/products_pictures/products_pictures/'.$imag->enlarged),
+                        storage_path('app/public/Uploads/products/'.$imag->enlarged)
+                    );
+                    $imagetable->save();
+                } catch (\Exception $ex){
+                    // dd($ex);
+                }
+            }
+        }
+        return;
+        foreach($products as $product){
+            // $product->categoryID;
+            // $product->Price;
+            // $product->sort_order;
+            // $product->default_picture;
+            // $product->viewed_times;
+            // $product->weight;
+            // $product->shipping_freight;
+            // $product->name_en;
+            // $product->slug;
+            // $product->brief_description_en;
+            // $product->description_en;
+            // $product->meta_title_en;
+            // $product->meta_description_en;
+            // $product->meta_keywords_en;
+            // $product->ordering_available;
+            // $images = $products->where('productID',$product->productID)->all();
+            if($product->Price){
+                $Product = new Product;
+                $Product->id=$product->productID;
+                $Product->category_id=$product->categoryID;
+                $Product->price=$product->Price;
+                $Product->weight=$product->weight;
+                $Product->views=$product->viewed_times;
+                $Product->sort_order=$product->sort_order;
+                $Product->shipping_freight=$product->shipping_freight;
+                $Product->in_stock=$product->in_stock;
+                $Product->name=$product->name_en;
+                $Product->slug=$product->slug;
+                $Product->sku=$product->product_code;
+                $Product->brief_description=$product->brief_description_en;
+                $Product->description=$product->description_en;
+                $Product->is_active=$product->ordering_available;
+                if($Product->save()){
+                    $Metatag = new Metatag;
+                    $Metatag->page_uri = 'product/'.$product->slug;
+                    $Metatag->meta_title = !empty($product->meta_title_en)?$product->meta_title_en:'';
+                    $Metatag->meta_keywords = !empty($product->meta_keywords_en)?$product->meta_keywords_en:'';
+                    $Metatag->meta_description = !empty($product->meta_description_en)?$product->meta_description_en:'';
+                    $Metatag->save();
+                    // foreach($images as $image){
+                        // $imagetable = new imagetable;
+                    // }
+                }
+            }
+        }
     }
     public function importCategory(){
         $data = public_path('imports/SC_categories.json');

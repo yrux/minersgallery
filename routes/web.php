@@ -25,6 +25,7 @@ Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard'
 Route::post('/newsletter', [IndexController::class, 'newsletter'])->name('newsletter');
 Route::post('/feedback', [IndexController::class, 'feedbacksave'])->name('feedbacksave');
 Route::get('/importCategory', [IndexController::class, 'importCategory'])->name('importCategory');
+Route::get('/importProducts', [IndexController::class, 'importProducts'])->name('importProducts');
 Route::get('/category/{category}', [IndexController::class, 'category'])->name('category');
 
 

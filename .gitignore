@@ -11,3 +11,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+public/imports/SC_products.json
+public/imports/SC_product_pictures.json
+public/imports/products_pictures/*
+public/imports/products_pictures.zip

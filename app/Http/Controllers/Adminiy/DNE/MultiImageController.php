@@ -18,7 +18,7 @@ class MultiImageController extends IndexController
         $message = 'Data Saved';
         $request2 = app('\App\Http\Requests\yTable'.$request->ytable_table.'Request');
         $strOrModel = !empty($request->modelName)?$request->modelName:$request->ytable_table;
-        $model_name = 'App\Model\\'.$strOrModel;
+        $model_name = 'App\Models\\'.$strOrModel;
         if(!empty($request->input($request->unique_column))){
             $model_name_test = $model_name::find($request->input($request->unique_column));
             try {
