@@ -28,6 +28,9 @@
                         <li class="{{isset($newsletter_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/newsletter-listing')}}"><i class="zmdi zmdi-mail-send zmdi-hc-fw"></i> Newsletters</a></li>
                         <li class="{{isset($category_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/category-listing')}}"><i class="zmdi zmdi-scanner zmdi-hc-fw"></i> Category</a></li>
                         <li class="{{isset($products_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/products-listing')}}"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i> Products</a></li>
+                        <li class="{{isset($coupons_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/coupons-listing')}}"><i class="zmdi zmdi-cutlery zmdi-hc-fw"></i> Coupons</a></li>
+                        <li class="{{isset($product_inquiry_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/product_inquiry-listing')}}"><i class="zmdi zmdi-email zmdi-hc-fw"></i> Product Inquiries</a></li>
+                        <li class="{{isset($order_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/order-listing')}}"><i class="zmdi zmdi-hc-fw zmdi-money"></i> Orders ({{Helper::returnMod('Order')->count()}})</a></li>
                         <li class="{{isset($metatags_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/metatags-listing')}}"><i class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Meta Tags</a></li>
                         <!--Example for sub menus -->
                         <!--product management-->

@@ -16,8 +16,8 @@
         </ul>
         <div class="leftSidebar_search">
         <div class="leftSidebar_searchHeading">Search</div>
-        <form action="#">
-            <input type="text" placeholder="Search Products" />
+        <form action="{{route('category',['root'])}}">
+            <input name="q" type="text" placeholder="Search Products" />
             <button>Find</button>
         </form>
         </div>

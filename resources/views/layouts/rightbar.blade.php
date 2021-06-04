@@ -16,8 +16,12 @@
         </form>
     </div>
     <div class="rightSidebar_cart">
-        <a href="#">My Shopping Cart</a>
+        <a href="{{route('cart.index')}}">My Shopping Cart</a>
+        @if($cartTotal==0)
         <p>(Empty)</p>
+        @else
+        <p class="total_sidecart">$ {{$cartTotal}}</p>
+        @endif
     </div>
     <div class="rightSidebar_language">
         <p>

@@ -21,4 +21,15 @@ class Product extends Model
     {
         return $this->morphOne('App\Models\Image', 'imageable')->where('table_name', 'productsthumb');
     }
+    public function image()
+    {
+        return $this->morphOne('App\Models\Image', 'imageable')->where('table_name', 'productsmain');
+    }
+    public function category () {
+        return $this->hasOne(Category::class,'id','category_id');
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

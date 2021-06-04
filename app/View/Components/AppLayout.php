@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-
+use Session;
 class AppLayout extends Component
 {
     /**
@@ -13,6 +13,13 @@ class AppLayout extends Component
      */
     public function render()
     {
-        return view('layouts.app');
+        $cartData = Session::get('cart');
+        $cartTotal = 0;
+        if($cartData){
+            foreach($cartData as $cartDat){
+                $cartTotal+=$cartDat['subtotal'];
+            }
+        }
+        return view('layouts.app')->with(compact('cartTotal'));
     }
 }

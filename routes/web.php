@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\{IndexController, ProductController, CartController};
 use App\Http\Controllers\Customer\IndexController as CustomerController;
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,16 @@ Route::post('/feedback', [IndexController::class, 'feedbacksave'])->name('feedba
 Route::get('/importCategory', [IndexController::class, 'importCategory'])->name('importCategory');
 Route::get('/importProducts', [IndexController::class, 'importProducts'])->name('importProducts');
 Route::get('/category/{category}', [IndexController::class, 'category'])->name('category');
-
+Route::get('/product/{product}', [ProductController::class, 'detail'])->name('product.detail');
+Route::post('/product-inquiry/{product}', [ProductController::class, 'saveInquiry'])->name('product.saveInquiry');
+Route::post('/addcart/{product}', [ProductController::class, 'addcart'])->name('product.addcart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::get('/cart/clear/{product?}', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/cart/coupon', [CartController::class, 'coupon'])->name('cart.coupon');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
+Route::post('/checkout/make-order', [CartController::class, 'makeOrder'])->name('checkout.order');
+Route::get('/thankyou', [CartController::class, 'thankyou'])->name('order.thankyou');
 
 Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\Http\Controllers\Adminiy'], function () {
 
