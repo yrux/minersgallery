@@ -19,6 +19,6 @@ class Order extends Model
         'discount','order_rowtotal','order_products','order_total'
     ];
     public function products () {
-        return $this->hasMany(OrderProducts::class,'id','order_id');
+        return $this->hasMany(OrderProducts::class,'order_id','id');
     }
 }

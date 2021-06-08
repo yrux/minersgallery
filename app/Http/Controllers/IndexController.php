@@ -65,6 +65,8 @@ class IndexController extends Controller
         $breadcrumbs = $this->readyBreadCrumbs($category);
         $catids = Arr::pluck($breadcrumbs,'id');
         $allChilds = $this->getAllChilds($category->childs);
+        $allChilds[] = $category->id;
+        // dd($allChilds);
         $products=Product::whereIn('category_id',$allChilds)->where('is_active',1)->where('is_deleted',0);
         if(!empty($_GET['q'])){
             $products = $products->where('name','like',"%".$_GET['q']."%");

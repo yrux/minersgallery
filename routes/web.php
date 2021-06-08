@@ -36,7 +36,7 @@ Route::get('/cart/clear/{product?}', [CartController::class, 'clear'])->name('ca
 Route::post('/cart/coupon', [CartController::class, 'coupon'])->name('cart.coupon');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 Route::post('/checkout/make-order', [CartController::class, 'makeOrder'])->name('checkout.order');
-Route::get('/thankyou', [CartController::class, 'thankyou'])->name('order.thankyou');
+Route::get('/thankyou/{order}', [CartController::class, 'thankyou'])->name('order.thankyou');
 
 Route::group(['middleware' => ['adminiy'],'prefix'=>'adminiy','namespace'=>'App\Http\Controllers\Adminiy'], function () {
 

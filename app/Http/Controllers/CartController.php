@@ -70,7 +70,7 @@ class CartController extends Controller
             if(Session::has('coupon')){
                 $coupon = Session::get('coupon');
             }
-            $data=$request->only(['first_name','last_name','company','address','city','zip','country','phone','email']);
+            $data=$request->only(['first_name','last_name','company','address','city','zip','country','phone','email','notes']);
             $data['discount'] = $coupon;
             $data['order_rowtotal'] = 0;
             $data['order_products'] = count($cart);
@@ -94,11 +94,13 @@ class CartController extends Controller
                 ];
             }
             $order->products()->createMany($arr);
-            return redirect()->route('order.thankyou')->with('notify_success','Thank you for the Order');
+            Session::forget('cart');
+            return redirect()->route('order.thankyou',[$order->id])->with('notify_success','Thank you for the Order');
         }
         return redirect()->route('home')->with('notify_error','No products in cart');
     }
-    public function thankyou () {
-        return view('shop.thankyou')->with('title','Thank you');
+    public function thankyou (Order $order) {
+        return view('shop.thankyou')->with('title','Order #'.$order->id)
+        ->with(compact('order'));
     }
 }
